@@ -56,7 +56,6 @@ for (let i = 0 ; i < input_fields.length ; i++){
     });     
   }
 }
-  
 
 /* //read values entered by the user on the input fields, convert them to local variables
 const purchase_price_input =document.getElementById("purchase_price").value;
