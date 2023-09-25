@@ -38,8 +38,6 @@ function isNumber(evt) {
   }
 }
 
-
-
 //Use the enter key to trigger calculation
 for (let i = 0 ; i < input_fields.length ; i++){
   //Ensure that there is data when the loop runs
@@ -59,11 +57,6 @@ for (let i = 0 ; i < input_fields.length ; i++){
   }
 }
   
-  
-
-
-
-
 
 /* //read values entered by the user on the input fields, convert them to local variables
 const purchase_price_input =document.getElementById("purchase_price").value;
@@ -71,8 +64,6 @@ const interest_rate_input = document.getElementById("interest_rate").value;
 const years_input = document.getElementById("number_of_years").value;
 const deposit_input = document.getElementById("deposit").value;
 const submitButton = document.getElementById("submit_btn");   */
-
-
 
 
 function bondCalculator(purchase_price, interest_rate, years, deposit){
