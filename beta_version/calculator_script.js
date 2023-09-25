@@ -3,10 +3,11 @@
     but the accurate information will be given to you by your bank.
     NOTE: Data found on this code is based on South African laws and fees.
     
-    DATE: 24 SEPTEMBER 2023
+    DATE: 25 SEPTEMBER 2023
     
     NDOLENA DESIGN 
-    REPRESENTED BY GENIAL INGELE*/
+    REPRESENTED BY GENIAL JUIF INGELE*/
+
 
     /*TODO 
     * Automatically separate large numbers with comma or point when typed in
