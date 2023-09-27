@@ -64,9 +64,9 @@ input[type="number"]:active {
   justify-content: center; 
   margin:0 auto; 
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); 
-  padding: 20px; width: 600px;
+  padding: 20px; 
   border-radius: 5px;
-  width: 720px;
+  width: 80%;
   background-color: white;
 
 }
@@ -91,15 +91,21 @@ input[type="number"]:active {
 body{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 13pt;
-  background-color: rgb(236, 236, 236);
+  background-color: rgb(248, 248, 248);
+  
 }
 
-text{
-  text-align: center;
+p{
+  line-height: 13pt;
 }
 
 h1{ 
   text-align: center;
+
+}
+
+h2, h3, h4{
+  line-height: 16pt;
 }
 
 select{
