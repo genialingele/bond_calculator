@@ -109,11 +109,12 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
     var other_bond_fees = 2300; document.getElementById("other_bond_fees").innerHTML = other_bond_fees; //assign other fees to its HTML element since it is a fixed value
     var total_bond_registration_costs;
 
-
     var transfer_cost;
     var transfer_duty;
     var other_transfer_fees = 2300; document.getElementById("other_transfer_fees").innerHTML = other_transfer_fees; //assign other fees to its HTML element since it is a fixed value
     var total_transfer_costs;
+
+    var once_off_cost;
 
     var salary;
     var total_repayment= 0;
@@ -359,9 +360,11 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
         //then use that value to find the total bond registration cost
         total_bond_registration_costs = deeds_bond() + bond_registration_cost + bank_initiation_fee + other_bond_fees;
         document.getElementById("total_bond_registration_costs").innerHTML = total_bond_registration_costs.toFixed(2);
-
+        total_bond_registration_costs = Number(total_bond_registration_costs);
 
         //calculate total transfer costs
+
+        //first calculate the transfer cost (seller's attorney fee)
         if (purchase_price > 100_000){
             transfer_cost = (0.01411789 * (purchase_price+ 8272.897)) + 16600; console.log(transfer_cost);
             document.getElementById("transfer_cost").innerHTML = transfer_cost.toFixed(2);
@@ -372,12 +375,16 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
                 document.getElementById("transfer_cost").innerHTML = transfer_cost.toFixed(2);
         }
 
-
-        total_transfer_costs = deeds_transfer() + transfer_cost + other_transfer_fees;
+        //then use that value to find the total transfer cost
+        total_transfer_costs = deeds_transfer() + transfer_cost + transfer_duty + other_transfer_fees;
         document.getElementById("total_transfer_costs").innerHTML = total_transfer_costs.toFixed(2);
-
-
+        total_transfer_costs = Number(total_transfer_costs);
         
+        //now, let's add all the once-off costs together
+        once_off_cost = total_bond_registration_costs + total_transfer_costs;
+        document.getElementById("once_off_cost").innerHTML = once_off_cost.toFixed(2); 
+        once_off_cost = Number(once_off_cost);
+
 
 
         //calculate the total repayment
