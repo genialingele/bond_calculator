@@ -83,6 +83,8 @@ for (let i = 0 ; i < input_fields.length ; i++){
   }
 }
 
+//let loan_capital, interest_rate, years, deposit;
+
 //Bond calculator algorithm. It takes in 3 parameters : price, interest, years, deposit amount (if available)
 function bondCalculator(purchase_price, interest_rate, years, deposit){
     //the mathematical formula is A = P * ( r * (1+r)^n ) / ( (1+r)^n - 1 )
@@ -97,17 +99,32 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
     var calculated_rates = interest_rate/100/12;
     var number_of_repayments = years * period[0]; 
     var total_interest;
-    var registration_cost;
+    var bank_initiation_fee = 6037.50; //as of FEBRUARY 2023/2024 National Credit Act
+
+    var deeds_office_fee_transfer= [45, 101, 642, 800, 1126, 1293, 1453, 2014, 2443, 2909, 3401, 4048, 4863, 6477]; //as of FEBRUARY 2023/2024 FROM Deeds office website
+    var deeds_office_fee_bond= [496, 642, 800, 1126, 1293, 1453, 2014, 2443, 2909, 3401, 4048, 4863, 5667, 8098]; //as of FEBRUARY 2023/2024 FROM Deeds office website
+    var deeds_office_transfer_brackets = [100_000, 200_000, 300_000, 600_000, 800_000, 1_000_000, 2_000_000, 4_000_000, 6_000_000, 8_000_000, 10_000_000, 15_000_000, 20_000_000 ];
+    var deeds_office_bond_brackets = [150_000, 300_000, 600_000, 800_000, 1_000_000, 2_000_000, 4_000_000, 6_000_000, 8_000_000, 10_000_000, 15_000_000, 20_000_000, 30_000_000];
+
+    var bond_registration_cost;
+    var other_bond_fees = 2300; document.getElementById("other_bond_fees").innerHTML = other_bond_fees; //assign other fees to its HTML element since it is a fixed value
+    var total_bond_registration_costs;
+
+
     var transfer_cost;
-    var deeds_office_fee= [496, 642, 800, 1126, 1293, 1453, 2014, 2443, 2909, 3401, 4048, 4863, 5667, 8098]; //as of FEBRUARY 2023 FROM Deeds office Websitein So
+    var transfer_duty;
+    var other_transfer_fees = 2300; document.getElementById("other_transfer_fees").innerHTML = other_transfer_fees; //assign other fees to its HTML element since it is a fixed value
+    var total_transfer_costs;
+
     var salary;
     var total_repayment= 0;
 
     purchase_price = Number(purchase_price);
-    purchase_price = purchase_price - deposit;
+    deposit = Number(deposit);
+    var loan_capital = purchase_price - deposit;
 
         //repayment calculator as shown earlier
-        repayment_amount = purchase_price * ( calculated_rates * ((1 + calculated_rates)**number_of_repayments) ) / ( ((1+calculated_rates) ** number_of_repayments)- 1 );
+        repayment_amount = loan_capital * ( calculated_rates * ((1 + calculated_rates)**number_of_repayments) ) / ( ((1+calculated_rates) ** number_of_repayments)- 1 );
         console.log(typeof(repayment_amount))
         
         repayment_amount = Number(repayment_amount.toFixed(2));//round the repayment number to 2 decimal places
@@ -121,19 +138,261 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
         document.getElementById("salary").innerHTML = salary;
         
         //calculate the total interest
-        total_interest = parseFloat( (repayment_amount * number_of_repayments ) - purchase_price);
+        total_interest = parseFloat( (repayment_amount * number_of_repayments ) - loan_capital);
         total_interest = Number(total_interest.toFixed(2));
         document.getElementById("total_interest").innerHTML = total_interest; 
+
+
+        //bank initiation fee 
+        document.getElementById("bank_initiation_fee").innerHTML= bank_initiation_fee;
+
+
+        //calculate deeds office transfer fee
+        function deeds_transfer(){
+          console.log(loan_capital);
+        
+      
+          //Does Not Exceed R 100 000.00
+          if(purchase_price <= deeds_office_transfer_brackets[0]){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[0];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 100 000.00 but does not exceed R 200 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[0]) && (purchase_price <= deeds_office_transfer_brackets[1])){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[1];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 200 000.00 but does not exceed R 300 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[1]) && (purchase_price<= deeds_office_transfer_brackets[2]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[2];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 300 000.00 but does not exceed R 600 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[2]) && (purchase_price <= deeds_office_transfer_brackets[3]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[3];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 600 000.00 but does not exceed R 800 000.00
+           else if ( (purchase_price > deeds_office_transfer_brackets[3]) && (purchase_price <= deeds_office_transfer_brackets[4]) ){
+           transfer_deeds_office_fee = deeds_office_fee_transfer[4];
+           return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 800 000.00 but does not exceed R 1 000 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[4]) && (purchase_price<= deeds_office_transfer_brackets[5]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[5];
+              return transfer_deeds_office_fee;
+          }
+      
+      
+          //Exceeds R 1 000 000.00 but does not exceed R 2 000 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[5]) && (purchase_price <= deeds_office_transfer_brackets[6]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[6];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 2 000 000.00 but does not exceed R 4 000 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[6]) && (purchase_price <= deeds_office_transfer_brackets[7]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[7];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 4 000 000.00 but does not exceed R 6 000 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[7]) && (purchase_price <= deeds_office_transfer_brackets[8]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[8];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 6 000 000.00 but does not exceed R 8 000 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[8]) && (purchase_price <= deeds_office_transfer_brackets[9]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[9];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 8 000 000.00 but does not exceed R 10 000 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[9]) && (purchase_price <= deeds_office_transfer_brackets[10]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[10];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 10 000 000.00 but does not exceed R 15 000 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[10]) && (purchase_price <= deeds_office_transfer_brackets[11]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[11];
+              return transfer_deeds_office_fee;
+          }
+      
+      
+          //Exceeds R 15 000 000.00 but does not exceed R 20 000 000.00
+          else if ( (purchase_price > deeds_office_transfer_brackets[11]) && (purchase_price <= deeds_office_transfer_brackets[12]) ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[12];
+              return transfer_deeds_office_fee;
+          }
+      
+          //Exceeds R 20 000 000.00
+          else if ( purchase_price > deeds_office_transfer_brackets[12] ){
+              transfer_deeds_office_fee = deeds_office_fee_transfer[13];
+              return transfer_deeds_office_fee;
+          }
+      
+          else {
+              alert("WRONG INPUT FOR DEEDS FEE (Transfer)")
+              return 0;
+          }
+                        
+        }
+        document.getElementById("deeds_office_transfer_fee").innerHTML = deeds_transfer();
+
+
+        //calculate deeds office bond fee
+        function deeds_bond(){
+            console.log(loan_capital);
+        
+            //Does Not Exceed R 100 000.00
+            if(loan_capital <= deeds_office_bond_brackets[0]){
+                return  bond_deeds_office_fee = deeds_office_fee_bond[0];
+            }
+        
+            //Exceeds R 100 000.00 but does not exceed R 200 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[0]) && (loan_capital <= deeds_office_bond_brackets[1])){
+                bond_deeds_office_fee = deeds_office_fee_bond[1];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 200 000.00 but does not exceed R 300 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[1]) && (loan_capital <= deeds_office_bond_brackets[2]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[2];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 300 000.00 but does not exceed R 600 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[2]) && (loan_capital <= deeds_office_bond_brackets[3]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[3];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 600 000.00 but does not exceed R 800 000.00
+                else if ( (loan_capital > deeds_office_bond_brackets[3]) && (loan_capital <= deeds_office_bond_brackets[4]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[4];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 800 000.00 but does not exceed R 1 000 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[4]) && (loan_capital <= deeds_office_bond_brackets[5]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[5];
+                return bond_deeds_office_fee;
+            }
+        
+        
+            //Exceeds R 1 000 000.00 but does not exceed R 2 000 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[5]) && (loan_capital <= deeds_office_bond_brackets[6]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[6];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 2 000 000.00 but does not exceed R 4 000 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[6]) && (loan_capital <= deeds_office_bond_brackets[7]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[7];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 4 000 000.00 but does not exceed R 6 000 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[7]) && (loan_capital <= deeds_office_bond_brackets[8]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[8];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 6 000 000.00 but does not exceed R 8 000 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[8]) && (loan_capital <= deeds_office_bond_brackets[9]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[9];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 8 000 000.00 but does not exceed R 10 000 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[9]) && (loan_capital <= deeds_office_bond_brackets[10]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[10];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 10 000 000.00 but does not exceed R 15 000 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[10]) && (loan_capital <= deeds_office_bond_brackets[11]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[11];
+                return bond_deeds_office_fee;
+            }
+        
+        
+            //Exceeds R 15 000 000.00 but does not exceed R 20 000 000.00
+            else if ( (loan_capital > deeds_office_bond_brackets[11]) && (loan_capital <= deeds_office_bond_brackets[12]) ){
+                bond_deeds_office_fee = deeds_office_fee_bond[12];
+                return bond_deeds_office_fee;
+            }
+        
+            //Exceeds R 20 000 000.00
+            else if ( loan_capital > deeds_office_bond_brackets[12] ){
+                bond_deeds_office_fee = deeds_office_fee_bond[13];
+                return bond_deeds_office_fee;
+            }
+        
+            else {
+                alert("WRONG INPUT FOR DEEDS FEE (bond)")
+                return 0;
+            }
+                            
+            }
+            document.getElementById("deeds_office_bond_fee").innerHTML = deeds_bond();
+
+        //calculate total bond registration costs
+
+        //first calculate the bond registration cost (bank attorney fee)
+        if (loan_capital > 100_000){
+        bond_registration_cost = (0.01411789 * (loan_capital+ 8272.897)) + 8300; console.log(bond_registration_cost);
+        document.getElementById("bond_registration_cost").innerHTML = bond_registration_cost.toFixed(2);
+        bond_registration_cost = Number(bond_registration_cost)
+        }
+        else {
+            bond_registration_cost = 6095;
+             document.getElementById("bond_registration_cost").innerHTML = bond_registration_cost.toFixed(2);
+        }
+
+        //then use that value to find the total bond registration cost
+        total_bond_registration_costs = deeds_bond() + bond_registration_cost + bank_initiation_fee + other_bond_fees;
+        document.getElementById("total_bond_registration_costs").innerHTML = total_bond_registration_costs.toFixed(2);
+
+
+        //calculate total transfer costs
+        if (purchase_price > 100_000){
+            transfer_cost = (0.01411789 * (purchase_price+ 8272.897)) + 16600; console.log(transfer_cost);
+            document.getElementById("transfer_cost").innerHTML = transfer_cost.toFixed(2);
+            transfer_cost = Number(transfer_cost)
+            }
+        else {
+            transfer_cost = 6095;
+                document.getElementById("transfer_cost").innerHTML = transfer_cost.toFixed(2);
+        }
+
+
+        total_transfer_costs = deeds_transfer() + transfer_cost + other_transfer_fees;
+        document.getElementById("total_transfer_costs").innerHTML = total_transfer_costs.toFixed(2);
+
+
+        
+
 
         //calculate the total repayment
         total_repayment = Number((total_interest + repayment_amount).toFixed(2));
         document.getElementById("total_repayment").innerHTML = total_repayment; 
-
-        //calculate the Registration costs
+    
 
 
 };
 
+// Spit results by the thousands. 
+function numberWithSpaces(variable_to_split) {
+  return variable_to_split.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
 
 //reset form values
 function reset(){
