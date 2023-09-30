@@ -106,7 +106,7 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
     var deeds_office_bond_brackets = [150_000, 300_000, 600_000, 800_000, 1_000_000, 2_000_000, 4_000_000, 6_000_000, 8_000_000, 10_000_000, 15_000_000, 20_000_000, 30_000_000];
 
     var bond_registration_cost;
-    var other_bond_fees = 2300; document.getElementById("other_bond_fees").innerHTML = other_bond_fees; //assign other fees to its HTML element since it is a fixed value
+    var other_bond_fees = 2300; document.getElementById("other_bond_fees").innerHTML = numberWithSpaces(other_bond_fees); //assign other fees to its HTML element since it is a fixed value
     var total_bond_registration_costs;
 
     var transfer_cost;
@@ -115,7 +115,7 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
     var transfer_duty_tax_percentage= [(0/100), (3/100), (6/100), (8/100), (11/100), (13/100)  ]; //2024 (1 March 2023 – 29 February 2024)  FROM Sars website https://www.sars.gov.za/tax-rates/transfer-duty/
     var transfer_duty_tax_brackets = [1_100_000, 1_512_500, 2_117_500, 2_722_500, 12_100_000];
  
-    var other_transfer_fees = 2300; document.getElementById("other_transfer_fees").innerHTML = other_transfer_fees; //assign other fees to its HTML element since it is a fixed value
+    var other_transfer_fees = 2300; document.getElementById("other_transfer_fees").innerHTML = numberWithSpaces(other_transfer_fees); //assign other fees to its HTML element since it is a fixed value
     var total_transfer_costs;
 
     var once_off_cost;
@@ -134,21 +134,21 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
         repayment_amount = Number(repayment_amount.toFixed(2));//round the repayment number to 2 decimal places
         
         //display the repayment value on the HTML page by using the id of "monthly_repayment"
-        document.getElementById("monthly_repayment").innerHTML = repayment_amount; 
+        document.getElementById("monthly_repayment").innerHTML = numberWithSpaces(repayment_amount); 
 
         //calculate the minimum gross salary an individual should earn to qualify for this loan and display on HTML element of id "salary"
         salary = repayment_amount*3.5; 
         salary = Number(salary.toFixed(2));
-        document.getElementById("salary").innerHTML = salary;
+        document.getElementById("salary").innerHTML = numberWithSpaces(salary);
         
         //calculate the total interest
         total_interest = parseFloat( (repayment_amount * number_of_repayments ) - loan_capital);
         total_interest = Number(total_interest.toFixed(2));
-        document.getElementById("total_interest").innerHTML = total_interest; 
+        document.getElementById("total_interest").innerHTML = numberWithSpaces(total_interest); 
 
 
         //bank initiation fee 
-        document.getElementById("bank_initiation_fee").innerHTML= bank_initiation_fee;
+        document.getElementById("bank_initiation_fee").innerHTML= numberWithSpaces(bank_initiation_fee);
 
 
         //calculate deeds office transfer fee
@@ -248,7 +248,10 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
           }
                         
         }
-        document.getElementById("deeds_office_transfer_fee").innerHTML = deeds_transfer();
+        
+        document.getElementById("deeds_office_transfer_fee").innerHTML = numberWithSpaces(deeds_transfer());
+
+        
 
 
         //calculate deeds office bond fee
@@ -345,7 +348,9 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
             }
                             
             }
-            document.getElementById("deeds_office_bond_fee").innerHTML = deeds_bond();
+
+            bond_deeds_office_fee = deeds_bond();
+            document.getElementById("deeds_office_bond_fee").innerHTML = numberWithSpaces(bond_deeds_office_fee);
 
         
         //calculate total bond registration costs
@@ -353,17 +358,18 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
         //first calculate the bond registration cost (bank attorney fee)
         if (loan_capital > 100_000){
         bond_registration_cost = (0.01411789 * (loan_capital+ 8272.897)) + 8300; //values we got from regression and probability
-        document.getElementById("bond_registration_cost").innerHTML = bond_registration_cost.toFixed(2);
-        bond_registration_cost = Number(bond_registration_cost)
+        document.getElementById("bond_registration_cost").innerHTML =numberWithSpaces( bond_registration_cost.toFixed(2));
+        bond_registration_cost = Number(bond_registration_cost);
         }
         else {
             bond_registration_cost = 6095;
-             document.getElementById("bond_registration_cost").innerHTML = bond_registration_cost.toFixed(2);
+             document.getElementById("bond_registration_cost").innerHTML =numberWithSpaces(bond_registration_cost.toFixed(2));
+             bond_registration_cost = Number(bond_registration_cost);
         }
 
         //then use that value to find the total bond registration cost
         total_bond_registration_costs = deeds_bond() + bond_registration_cost + bank_initiation_fee + other_bond_fees;
-        document.getElementById("total_bond_registration_costs").innerHTML = total_bond_registration_costs.toFixed(2);
+        document.getElementById("total_bond_registration_costs").innerHTML = numberWithSpaces(total_bond_registration_costs.toFixed(2));
         total_bond_registration_costs = Number(total_bond_registration_costs);
 
         //calculate total transfer costs
@@ -371,12 +377,13 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
         //first calculate the transfer cost (seller's attorney fee)
         if (purchase_price > 100_000){
             transfer_cost = (0.01411789 * (purchase_price+ 8272.897)) + 16600;
-            document.getElementById("transfer_cost").innerHTML = transfer_cost.toFixed(2);
-            transfer_cost = Number(transfer_cost)
+            document.getElementById("transfer_cost").innerHTML = numberWithSpaces(transfer_cost.toFixed(2));
+            transfer_cost = Number(transfer_cost);
             }
         else {
             transfer_cost = 6095;
-                document.getElementById("transfer_cost").innerHTML = transfer_cost.toFixed(2);
+            document.getElementById("transfer_cost").innerHTML = numberWithSpaces(transfer_cost.toFixed(2));
+            transfer_cost = Number(transfer_cost);
         }
 
         //calculate transfer duty rate
@@ -422,29 +429,20 @@ function bondCalculator(purchase_price, interest_rate, years, deposit){
 
         //assign the value for transfer duty from the function to its variable
         transfer_duty = transfer_duty_calculator();
-        document.getElementById("transfer_duty_cost").innerHTML = transfer_duty.toFixed(2);
+        document.getElementById("transfer_duty_cost").innerHTML = numberWithSpaces(transfer_duty.toFixed(2));
         transfer_duty = Number(transfer_duty);
 
     
 
         //then use that value to find the total transfer cost
         total_transfer_costs = deeds_transfer() + transfer_cost + transfer_duty + other_transfer_fees;
-        document.getElementById("total_transfer_costs").innerHTML = total_transfer_costs.toFixed(2);
-        total_transfer_costs = Number(total_transfer_costs);
+        document.getElementById("total_transfer_costs").innerHTML = numberWithSpaces(total_transfer_costs.toFixed(2));
+        total_transfer_costs = Number(total_transfer_costs); 
         
         //now, let's add all the once-off costs together
         once_off_cost = total_bond_registration_costs + total_transfer_costs;
-        document.getElementById("once_off_cost").innerHTML = once_off_cost.toFixed(2); 
+        document.getElementById("once_off_cost").innerHTML = numberWithSpaces(once_off_cost.toFixed(2)); 
         once_off_cost = Number(once_off_cost);
-
-
-
-        //calculate the total repayment
-        total_repayment = Number((total_interest + repayment_amount).toFixed(2));
-        document.getElementById("total_repayment").innerHTML = total_repayment; 
-    
-
-
 };
 
 // Spit results by the thousands. 
