@@ -67,8 +67,21 @@ input[type="number"]:active {
   border-radius: 5px;
   width: 900px;
   background-color: white;
+  align-items: baseline;
+  overflow: hidden;
 
 }
+
+.form_container{
+  flex: 1;
+
+}
+
+.results_breakdown{
+  flex: 2;
+}
+
+
 
 .hero{
   background-color: #b3b3b3;
@@ -83,6 +96,10 @@ input[type="number"]:active {
   color: #ffffff;
 
 }
+
+.interest_rate{
+  width: 100px;
+}
  
 
 
@@ -91,6 +108,7 @@ body{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 13pt;
   background-color: rgb(248, 248, 248);
+  margin: 0;
   
 }
 
@@ -123,6 +141,9 @@ select{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.subtotal_costs{
+  float:inline-end;
+}
 
 /* -----BUTTONS-------*/
 button{
@@ -177,3 +198,81 @@ button{
     #reset_btn:active {
       background-color: #800000; /* Background color on click */
     }
+
+
+@media screen and (max-width: 760px){
+
+    /* -----CONTAINERS-------*/
+    .parent_container{
+      display: block; 
+      width: 100%;
+      background-color: white;
+      align-items: baseline;
+      box-shadow: none;
+
+    }
+
+    .form_container{
+      width: 100%;
+      flex:0;
+      margin: 0;
+    }
+
+    .subtotal_costs{
+      display: none;
+    }
+    
+
+    .results_breakdown{
+      width: 100%;
+      margin: 0;
+    }
+      
+    .results_breakdown h2{
+      font-size: 16pt;    
+    }
+
+
+        /* -----INPUTS-------*/
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      text-align: left;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+      text-align: left;
+
+    }
+
+    input{
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 2px#e5e5e5 solid;
+        font-size: 24pt;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        transition: background-color 0.3s; /* Add a smooth transition for the background color */
+
+    }
+
+    /* Hover effect */
+    input[type="number"]:hover {
+      background-color: #c0deff;
+    }
+
+    /* Active (clicked) state */
+    input[type="number"]:active {
+      background-color: #0066c5;
+      color: white; /* Optionally, change text color to white when clicked */
+    }
+    label{
+      font-size: 16pt;
+    }
+      
+}
