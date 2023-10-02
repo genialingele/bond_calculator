@@ -39,8 +39,8 @@
     <!-- Container for both calculator and results breakdown columns-->
     <div id="parent_container" class="parent_container" >
 
-        <!-- Container for the calculator-->
-        <div id="form_container" style="flex: 1; margin-right: 20px; ">
+        <!-- Container for the calculator inputs-->
+        <div id="form_container" class="form_container">
 
             <!--Form for the bond calculator -->
             <form id="calculator_input_form">
@@ -52,7 +52,7 @@
                 <input type="number"  min="0" id="deposit" name="Deposit" onkeypress="return isNumber(event)" value="50000"/><br>
 
                 <label for="interest_rate">Interest Rate (prime)</label><br>
-                <input type="number" min="0" id="interest_rate" name="interest_rate" onkeypress="return isDecimalNumber(event)" style="width: 95px;" value="11.75"><span>%</span><br>
+                <input type="number" min="0" id="interest_rate" name="interest_rate" onkeypress="return isDecimalNumber(event)" value="11.75" class="interest_rate"><span>%</span><br>
 
                 <label for="number_of_years">Number of years</label><br>
                 <select id="number_of_years" name="number_of_years" onkeypress="return isNumber(event)">
@@ -76,7 +76,7 @@
         </div>
 
         <!-- Container for the results breakdown-->
-        <div id="results_breakdown" style="flex: 4;">
+        <div id="results_breakdown" class="results_breakdown">
             <p>Monthly repayment: </p>
             <h2>R <span id="monthly_repayment" name="monthly_repayment">0.0</span> </h2>
             
@@ -86,9 +86,9 @@
             
 
            
-            <h2>Once-off Costs (inc. VAT): <b>R <span id="once_off_cost" >0.0</span></b></p></h2> 
+            <h2>Once-off Costs (inc. VAT): <b>R <span id="once_off_cost" >0.0</span></b></h2> 
             
-            <span style="float: inline-end"> <b>R <span id="total_bond_registration_costs" >0.0</span></b></p> </span>
+            <span class="subtotal_costs"> <b>R <span id="total_bond_registration_costs" >0.0</span></b> </span>
             <h3>Bond Registration </h3>
 
             <p>Deeds office bond fee: <b>R <span id="deeds_office_bond_fee">0.0</span></b></p>
@@ -97,7 +97,7 @@
             <p>Postage, FICA & other fees: <b>R <span id="other_bond_fees">0.0</span></b></p>
 
         
-            <span style="float:inline-end"> <b>R <span id="total_transfer_costs" >0.0</span></b></p> </span>
+            <span class="subtotal_costs"> <b>R <span id="total_transfer_costs" >0.0</span></b></p> </span>
             <h3>Transfer Costs </h3>
 
             <p>Deeds office transfer fee: <b>R <span id="deeds_office_transfer_fee">0.0</span></b></p>
