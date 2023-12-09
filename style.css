@@ -63,7 +63,7 @@ input[type="number"]:active {
   justify-content: center; 
   margin:0 auto; 
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); 
-  padding: 20px; 
+  padding: 30px; 
   border-radius: 5px;
   width: 900px;
   background-color: white;
@@ -152,6 +152,27 @@ button{
   font-size: large;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+
+/* "see more" button */ 
+
+.see_more_btn{
+  width: 300px;
+  background-color: #ec5600;
+  text-align: center;
+  color: #FFFFFF;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  position: absolute;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.see_more_btn:hover{
+  background-color: #0e7728;
+}
+
 
 
 .button_container{
